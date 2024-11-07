@@ -1,3 +1,5 @@
-#!/usr/bin/env node
+// Script
 
-// TODO
+console.log("Running aggregate script...")
+
+
