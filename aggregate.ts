@@ -49,12 +49,16 @@ const pullSources = async () => {
 const main = async () => {
   console.log("Running aggregate script...");
   
-  await pullSources().
-    then(values => {
-      const [surfrBody, wooBody] = values;
-      console.log("Pulled sources");
-    }).
-    catch(err => console.error(err));
+  let surfrBody, wooBody;
+  try {
+    [surfrBody, wooBody] = await pullSources();
+    console.log("Pulled sources");
+  } catch(err) {
+    console.error(`Error occurred pulling sources: ${err}`);
+    return;
+  }
+  
+  console.log(JSON.stringify(surfrBody));
   
   console.log("Finished aggregate script");
 }
