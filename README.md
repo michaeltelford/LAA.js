@@ -27,7 +27,7 @@ Note: The woo leaderboard app is pretty flakey on some browsers.
 
 #### API
 
-https://prod3.apiwoo.com/leaderboardsHashtags?metric=height&start_date=1357002000&end_date=1714521600&continent=&country=&spot=&gender=&offset=0&pagesize=50&sport=kite&game_type=big_air
+https://prod3.apiwoo.com/leaderboardsHashtags?offset=0&page_size=50&feature=height&game_type=big_air
 
 ## Design
 

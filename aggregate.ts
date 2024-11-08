@@ -19,19 +19,17 @@ type Jump = {
 type Jumps = Jump[];
 
 const makeHTTPRequest = async (source: string, options) => {
-    const resp = await new Promise<void>((resolve, reject) => {
+    return await new Promise<void>((resolve, reject) => {
         request.get(options, (err, res, body) => {
             if (err) {
                 console.error(`Failed to GET ${source} response: ${err}`);
-                return reject();
+                return reject(err);
             }
             
             console.log(`${source} HTTP status: ${res.statusCode}`);
             return resolve(body);
         });
     });
-    
-    return resp;
 };
 
 const getSurfrResults = async () => {
@@ -39,20 +37,38 @@ const getSurfrResults = async () => {
         url: "https://kiter-271715.appspot.com/leaderboards/list/height/alltime/0?accesstoken=e16a0f15-67c5-4306-81a5-0c554a55a222",
         json: true
     };
-  
-    const body = await makeHTTPRequest("Surfr", options);
-    console.log("Obtained Surfr results");
     
-    return body;
+    console.log("Requesting results from Surfr...");
+  
+    return await makeHTTPRequest("Surfr", options);
+};
+
+const getWooResults = async () => {
+    const options = {
+        url: "https://prod3.apiwoo.com/leaderboardsHashtags?offset=0&page_size=50&feature=height&game_type=big_air",
+        json: true
+    };
+    
+    console.log("Requesting results from Woo...");
+  
+    return await makeHTTPRequest("Woo", options);
+};
+
+const pullSources = async () => {
+    const jumps: Jumps = [];
+    
+    await Promise.all([getSurfrResults(), getWooResults()]).then(values => {
+        const [surfrBody, wooBody] = values;
+        console.log("Pulled sources");
+    });
+    
+    return jumps;
 };
 
 const main = async () => {
     console.log("Running aggregate script...");
     
-    const jumps: Jumps = [];
-    const surfrBody = await getSurfrResults();
-    
-    console.log(surfrBody);
+    const jumps = await pullSources();
     
     console.log("Finished aggregate script");
 }
