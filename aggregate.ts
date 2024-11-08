@@ -6,7 +6,7 @@ import request from "request";
 import * as fs from "fs";
 import { Source, Jump, SurfrJump, WooJump } from './types/types';
 
-const outputFilePath = "./aggregated_results.json";
+const outputFilePath = "./public/aggregated_results.json";
 
 const sources: Source[] = [
   {

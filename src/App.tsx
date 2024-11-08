@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import Results from './Results';
 import './App.css';
 
 function App() {
@@ -8,9 +9,10 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="text-3xl font-bold">
-          Combined Kitesurfing Big Air Leaderboard
+          Kitesurfing Big Air Combined Leaderboard
         </h1>
       </header>
+      <Results/>
       <footer className="Footer">
         Developed by Michael Telford
       </footer>

@@ -1,8 +1,3 @@
-body {
-  background-color: #282c34;
-  color: white;
-}
-
 .App {
   text-align: center;
 }
@@ -31,7 +26,10 @@ body {
   color: #61dafb;
 }
 
-.Footer {}
+.ResultsTable {
+  margin-left: auto;
+  margin-right: auto;
+}
 
 @keyframes App-logo-spin {
   from {
