@@ -3,7 +3,7 @@
 // The output is a common jump format stored in a file called `aggregated.json`.
 
 import request from "request";
-import { Source, Jump } from './types/types';
+import { Source, Jump, SurfrJump, WooJump } from './types/types';
 
 const sources: Source[] = [
   {
@@ -41,7 +41,7 @@ const makeHTTPRequest = async (source: string, options) => {
   });
 };
 
-const pullSources = async () => {
+const pullSources = async (): Promise<any[]> => {
   const promises = sources.map(source => buildHTTPPromise(source));
   return await Promise.all(promises);
 };
@@ -58,8 +58,11 @@ const main = async () => {
     return;
   }
   
-  console.log(JSON.stringify(surfrBody));
-  
+  const surfrResults: SurfrJump[] = surfrBody;
+  const wooResults: WooJump[] = wooBody["items"];
+
+  console.log(true);
+
   console.log("Finished aggregate script");
 }
 
