@@ -1,4 +1,9 @@
 
+export type Source = {
+    name: string,
+    url: string,
+};
+
 export type Jump = {
     source: string,
     position: string,
@@ -10,5 +15,3 @@ export type Jump = {
     country?: string,
     imageURL?: string,
 };
-
-export type Jumps = Jump[];
