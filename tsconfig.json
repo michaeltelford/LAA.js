@@ -21,7 +21,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src",
-    "aggregate.ts"
+    "aggregate.ts",
+    "src"
   ]
 }

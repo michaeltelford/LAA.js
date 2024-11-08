@@ -2,12 +2,13 @@
   "name": "leaderboard_aggregate_app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "aggregate_results": "rm aggregate.js && tsc -t es2022 -m es2022 --moduleResolution node aggregate.ts && node aggregate.js"
+    "aggregate_results": "rm aggregate.js; tsc -t es2022 -m es2022 --moduleResolution node aggregate.ts && node aggregate.js"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
