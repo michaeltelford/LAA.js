@@ -8,9 +8,12 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="text-3xl font-bold">
-            Combined Kitesurfing Big Air Leaderboard
+          Combined Kitesurfing Big Air Leaderboard
         </h1>
       </header>
+      <footer className="Footer">
+        Developed by Michael Telford
+      </footer>
     </div>
   );
 }
