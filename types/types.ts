@@ -6,9 +6,8 @@ export type Source = {
 
 export type Jump = {
     source: string,
-    position: string,
     name: string,
-    height: string,
+    height: number,
     date?: string,
     location?: string,
     gender?: string,

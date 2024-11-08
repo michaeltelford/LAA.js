@@ -34,7 +34,7 @@ const makeHTTPRequest = async (source: string, options) => {
         console.error(`Failed to GET response (${source}): ${err}`);
         return reject(err);
       }
-      
+
       console.log(`HTTP status: ${res.statusCode} (${source})`);
       return resolve(body);
     });
@@ -46,9 +46,38 @@ const pullSources = async (): Promise<any[]> => {
   return await Promise.all(promises);
 };
 
+const mapJumps = (surfrJumps: SurfrJump[], wooJumps: WooJump[]): Jump[] => {
+  const jumps: Jump[] = [];
+
+  surfrJumps.forEach(jump => {
+    jumps.push({
+      source: "Surfr",
+      name: jump.user.name,
+      height: jump.value,
+      country: jump.user.countryIOC,
+    } as Jump);
+  });
+
+  wooJumps.forEach(jump => {
+    const imageURL = jump._pictures.filter(picture => picture.type === "user")[0]?.url;
+
+    jumps.push({
+      source: "Woo",
+      name: `${jump.name} ${jump.lastname}`,
+      height: jump.score,
+      imageURL,
+    } as Jump);
+  });
+
+  // Sorted desc - highest jump first aka jumps[0]
+  jumps.sort((a, b) => b.height - a.height);
+
+  return jumps;
+}
+
 const main = async () => {
   console.log("Running aggregate script...");
-  
+
   let surfrBody, wooBody;
   try {
     [surfrBody, wooBody] = await pullSources();
@@ -57,11 +86,12 @@ const main = async () => {
     console.error(`Error occurred pulling sources: ${err}`);
     return;
   }
-  
+
   const surfrResults: SurfrJump[] = surfrBody;
   const wooResults: WooJump[] = wooBody["items"];
+  const jumps = mapJumps(surfrResults, wooResults);
 
-  console.log(true);
+  console.log(jumps.length, jumps.map(j => [j.source, j.name, j.height]));
 
   console.log("Finished aggregate script");
 }
