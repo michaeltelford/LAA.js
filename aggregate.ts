@@ -16,17 +16,6 @@ const sources: Source[] = [
   },
 ];
 
-const buildHTTPPromise = async (source: Source) => {
-  const options = {
-    url: source.url,
-    json: true,
-  };
-
-  console.log(`Requesting results from ${source.name}...`);
-
-  return await makeHTTPRequest(source.name, options);
-};
-
 const makeHTTPRequest = async (source: string, options) => {
   return await new Promise<void>((resolve, reject) => {
     request.get(options, (err, res, body) => {
@@ -39,6 +28,17 @@ const makeHTTPRequest = async (source: string, options) => {
       return resolve(body);
     });
   });
+};
+
+const buildHTTPPromise = async (source: Source) => {
+  const options = {
+    url: source.url,
+    json: true,
+  };
+
+  console.log(`Requesting results from ${source.name}...`);
+
+  return await makeHTTPRequest(source.name, options);
 };
 
 const pullSources = async (): Promise<any[]> => {
@@ -69,7 +69,7 @@ const mapJumps = (surfrJumps: SurfrJump[], wooJumps: WooJump[]): Jump[] => {
     } as Jump);
   });
 
-  // Sorted desc - highest jump first aka jumps[0]
+  // Sorted desc i.e. highest jump first aka jumps[0]
   jumps.sort((a, b) => b.height - a.height);
 
   return jumps;
