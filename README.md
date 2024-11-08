@@ -66,7 +66,7 @@ A results enumerable will contain all results to be displayed, sorted by jump he
 > aggregate.ts
 
 ```
-aggregate_results() -> aggregated.json
+aggregate_results() -> aggregated_results.json
 ```
 
 - Create an instance of common Results (enumerable)
@@ -76,13 +76,13 @@ aggregate_results() -> aggregated.json
         - Transform to a common Result object
         - Append result to common Results enumerable
 - Sort results by height (highest jump first)
-- Write the results to `aggregated.json` file at root of repo
+- Write the results to `aggregated_results.json` file at root of repo
 
 ### Phase 2
 
 Create a react app to display the aggregated results.
 
-- Read results from `aggregated.json`
+- Read results from `aggregated_results.json`
 - Set in state (re-rendering the React components)
 - User can now see and interact with the aggregated Results
 - Results will be updated every 24 hours
@@ -100,19 +100,19 @@ import aggregate_results from 'aggregate' // aggregate.ts
 aggregateResults()
 setInterval(aggregateResults(), 24 * hours)
 
-initialState = readAggregatedResults('aggregated.json')
+initialState = readAggregatedResults('aggregated_results.json')
 
 // ... normal react startup code
 ```
 
-When the app is loaded in the browser, the `aggregated.json` file will be updated every 24 hours, requiring a page/app refresh to update state and UI.
+When the app is loaded in the browser, the `aggregated_results.json` file will be updated every 24 hours, requiring a page/app refresh to update state and UI.
 
 If a page refresh is undesirable, we can use our existing`setInterval` to also refresh the state automatically:
 
 ```js
 refreshResults = () => {
     // dispatch('AGGREGATED_RESULTS')
-    //    --> results = readAggregatedResults('aggregated.json')
+    //    --> results = readAggregatedResults('aggregated_results.json')
     //    --> setState(results)
 })
 

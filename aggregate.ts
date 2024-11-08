@@ -3,7 +3,10 @@
 // The output is a common jump format stored in a file called `aggregated.json`.
 
 import request from "request";
+import * as fs from "fs";
 import { Source, Jump, SurfrJump, WooJump } from './types/types';
+
+const outputFilePath = "./aggregated_results.json";
 
 const sources: Source[] = [
   {
@@ -72,7 +75,15 @@ const mapJumps = (surfrJumps: SurfrJump[], wooJumps: WooJump[]): Jump[] => {
   // Sorted desc i.e. highest jump first aka jumps[0]
   jumps.sort((a, b) => b.height - a.height);
 
+  console.log(`Successfully mapped and sorted ${jumps.length} jump results`);
+
   return jumps;
+}
+
+const writeJumpsToFile = (jumps: Jump[]) => {
+  fs.writeFileSync(outputFilePath, JSON.stringify(jumps, null, 2), "utf8");
+
+  console.log(`Results written to file: ${outputFilePath}`);
 }
 
 const main = async () => {
@@ -91,8 +102,9 @@ const main = async () => {
   const wooResults: WooJump[] = wooBody["items"];
   const jumps = mapJumps(surfrResults, wooResults);
 
-  console.log(jumps.length, jumps.map(j => [j.source, j.name, j.height]));
+  writeJumpsToFile(jumps);
 
+  console.log(jumps.map(j => [j.source, j.name, j.height]));
   console.log("Finished aggregate script");
 }
 
