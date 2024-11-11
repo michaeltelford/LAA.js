@@ -34,7 +34,7 @@ https://prod3.apiwoo.com/leaderboardsHashtags?offset=0&page_size=50&feature=heig
 Designed as a React app with some vanilla JS to aggregate the results.
 
 ```text
-setInterval -> aggregate.ts -------> aggregated_results.json
+node -> aggregate.ts -------> aggregated_results.json
                                                  ^
 user (browser) -> react_app -------<state>-------|
 ```
@@ -83,42 +83,6 @@ aggregate_results() -> aggregated_results.json
 Create a react app to display the aggregated results.
 
 - Read results from `aggregated_results.json`
-- Set in state (re-rendering the React components)
+- `componentDidMount` fetches ^ and sets in state (updating the UI)
 - User can now see and interact with the aggregated Results
 - Results will be updated every 24 hours
-
-> app.ts
-
-```js
-// When app starts, after a new release or error etc.
-// The sources will be polled and their results aggregated into a JSON file
-// which is consumed by the React app, displaying the information to the user.
-// These results will be updated every 24 hours thereafter (requiring a page refresh?).
-
-import aggregate_results from 'aggregate' // aggregate.ts
-
-aggregateResults()
-setInterval(aggregateResults(), 24 * hours)
-
-initialState = readAggregatedResults('aggregated_results.json')
-
-// ... normal react startup code
-```
-
-When the app is loaded in the browser, the `aggregated_results.json` file will be updated every 24 hours, requiring a page/app refresh to update state and UI.
-
-If a page refresh is undesirable, we can use our existing`setInterval` to also refresh the state automatically:
-
-```js
-refreshResults = () => {
-    // dispatch('AGGREGATED_RESULTS')
-    //    --> results = readAggregatedResults('aggregated_results.json')
-    //    --> setState(results)
-})
-
-// Updating the setInterval method from above.
-setInterval(() => {
-    aggregateResults()
-    refreshResults()
-}, 24 * hours)
-```
