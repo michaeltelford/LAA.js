@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Jump } from '../types/types';
 
-const apiUrl = () => "http://127.0.0.1:9292"
+const apiUrl = () => process.env.REACT_APP_API_URL as string
 
 const initialState = {
   jumps: [],
@@ -12,11 +12,9 @@ function Results() {
   const jumps = state.jumps as Jump[];
 
   useEffect(() => {
-    fetch(`${apiUrl()}/aggregated_results.json`)
+    fetch(apiUrl())
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Response not OK');
-        }
+        if (!response.ok) throw new Error('Response not OK');
         return response.json();
       })
       .then(data => setState({ jumps: data }))
