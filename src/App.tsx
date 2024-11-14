@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="text-3xl font-bold">
-          Kitesurfing Big Air Combined Leaderboard
+          Kiteboarding Big Air Combined Leaderboard
         </h1>
       </header>
       <Results/>
