@@ -23,7 +23,7 @@ function Results() {
 
   return (
     <div id='results' className='results'>
-      <table className='centre-table'>
+      <table className='centre-table border-separate border-spacing-2 border border-slate-400'>
         <thead>
           <tr>
             <th>Position</th>
