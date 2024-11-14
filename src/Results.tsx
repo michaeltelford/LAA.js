@@ -22,8 +22,8 @@ function Results() {
   }, []);
 
   return (
-    <div id='results'>
-      <table className='ResultsTable'>
+    <div id='results' className='results'>
+      <table className='centre-table'>
         <thead>
           <tr>
             <th>Position</th>

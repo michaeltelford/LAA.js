@@ -45,6 +45,19 @@ A JSON file (fetched from an API) will contain all results to be displayed, sort
 
 ## Usage
 
+Set the necessary ENV vars:
+
+> .env.development.local
+
+```
+NODE_ENV=development
+REACT_APP_API_URL=http://127.0.0.1:9292/aggregated_results.json
+```
+
+Make sure the API server is running and the above URL is producing JSON.
+
+Then run the following commands:
+
 ```bash
 npm i
 npm start
