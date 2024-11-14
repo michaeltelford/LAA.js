@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Jump } from '../types/types';
 
+const apiUrl = () => "http://127.0.0.1:9292"
+
 const initialState = {
-  results: [],
+  jumps: [],
 };
 
 function Results() {
   const [state, setState] = useState(initialState);
-  const results = state.results as Jump[];
+  const jumps = state.jumps as Jump[];
 
   useEffect(() => {
-    fetch('aggregated_results.json')
+    fetch(`${apiUrl()}/aggregated_results.json`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Response not OK');
         }
         return response.json();
       })
-      .then(data => setState({ results: data }))
+      .then(data => setState({ jumps: data }))
       .catch(error => console.error('Error with fetch:', error));
   }, []);
 
@@ -26,6 +28,7 @@ function Results() {
       <table className='ResultsTable'>
         <thead>
           <tr>
+            <th>Position</th>
             <th>Source</th>
             <th>Rider</th>
             <th>Height</th>
@@ -33,11 +36,12 @@ function Results() {
         </thead>
         <tbody>
           {
-            results.map(r => (
-              <tr key={`${r.source}-${r.name}-${r.height}`}>
-                <td>{r.source}</td>
-                <td>{r.name}</td>
-                <td>{r.height}</td>
+            jumps.map(jump => (
+              <tr key={jump.position}>
+                <td>{jump.position}</td>
+                <td>{jump.source}</td>
+                <td>{jump.name}</td>
+                <td>{jump.height}</td>
               </tr>
             ))
           }

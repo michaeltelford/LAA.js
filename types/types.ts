@@ -5,6 +5,7 @@ export type Source = {
 };
 
 export type Jump = {
+    position: number,
     source: string,
     name: string,
     height: number,
