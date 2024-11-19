@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Jump } from '../types/types';
 
-const apiUrl = () => process.env.REACT_APP_API_URL as string
+const apiUrl = () => process.env.REACT_APP_API_URL as string;
 
 const initialState = {
   jumps: [],
@@ -11,7 +11,7 @@ function Results() {
   const [state, setState] = useState(initialState);
   const jumps = state.jumps as Jump[];
 
-  useEffect(() => {
+  const fetchResults = () => {
     fetch(apiUrl())
       .then(response => {
         if (!response.ok) throw new Error('Response not OK');
@@ -19,7 +19,9 @@ function Results() {
       })
       .then(data => setState({ jumps: data }))
       .catch(error => console.error('Error with fetch:', error));
-  }, []);
+  };
+
+  useEffect(fetchResults, []);
 
   return (
     <div id='results' className='results'>
@@ -45,6 +47,7 @@ function Results() {
           }
         </tbody>
       </table>
+      {/* <button onClick={fetchResults}>Refresh</button> */}
     </div>
   );
 };
